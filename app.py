@@ -33,44 +33,51 @@ def home():
                     margin: 0;
                 }}
                 .hero-section {{
-                    background: linear-gradient(rgba(30, 60, 114, 0.85), rgba(42, 82, 152, 0.85)), 
+                    background: linear-gradient(rgba(30, 60, 114, 0.9), rgba(42, 82, 152, 0.9)), 
                                 url('https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=1200') no-repeat center center;
                     background-size: cover;
                     color: white; 
-                    padding: 40px 20px; 
+                    padding: 50px 25px; 
                     border-radius: 15px; 
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-                    margin-bottom: 25px;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.15); 
+                    margin-bottom: 30px;
                 }}
                 .tabs-container {{
                     display: flex;
                     justify-content: center;
-                    gap: 10px;
-                    margin-bottom: 25px;
+                    gap: 15px;
+                    margin-bottom: 35px;
                 }}
                 .tab-button {{
                     background-color: #ffffff;
                     color: #2c3e50;
                     border: 2px solid #2a5298;
-                    padding: 12px 25px;
-                    font-size: 16px;
+                    padding: 15px 30px;
+                    font-size: 18px;
                     font-weight: bold;
                     border-radius: 30px;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+                }}
+                .tab-button:hover {{
+                    background-color: #eef2f7;
+                    transform: translateY(-2px);
                 }}
                 .tab-button.active {{
                     background-color: #2a5298;
                     color: white;
+                    box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
                 }}
                 .content-section {{
                     display: none;
                     max-width: 700px; 
                     margin: 0 auto;
+                    animation: fadeIn 0.5s ease;
                 }}
-                .content-section.active {{
-                    display: block;
+                @keyframes fadeIn {{
+                    from {{ opacity: 0; transform: translateY(10px); }}
+                    to {{ opacity: 1; transform: translateY(0); }}
                 }}
                 .card {{
                     background: white; 
@@ -78,7 +85,7 @@ def home():
                     padding: 20px; 
                     margin-bottom: 20px; 
                     text-align: right; 
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
                 }}
                 .card-img {{
                     width: 100%; 
@@ -105,16 +112,21 @@ def home():
         <body>
             
             <div class="hero-section">
-                <h1 style="margin: 0; font-size: 30px;">🏰 أهلاً بك في دليل الكرك السياحي 🏰</h1>
-                <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.95;">اكتشف التاريخ والأصالة العريقة برعاية المطور حازم الطراونه</p>
+                <h1 style="margin: 0; font-size: 32px; font-weight: bold; letter-spacing: 1px;">🏰 حيّا الله بضيوف الكرك الأبية 🏰</h1>
+                <p style="margin: 20px auto 0 auto; font-size: 18px; opacity: 0.95; line-height: 1.8; max-width: 800px;">
+                    مرحباً بكم في أرض التاريخ والشهامة، من قمة قلعتنا الشامخة إلى أزقة مدينتنا العريقة. أضع بين أيديكم دليلك السياحي الشامل والمبتكر لاستكشاف أشهر المعالم التاريخية وأعرق المطاعم الشعبية في مدينتنا الغالية.
+                </p>
+                <div style="margin-top: 25px; font-size: 15px; font-weight: bold; background: rgba(255,255,255,0.15); display: inline-block; padding: 8px 20px; border-radius: 20px;">
+                    ✨ إعداد وتطوير المطور: حازم الطراونه ✨
+                </div>
             </div>
 
             <div class="tabs-container">
-                <button class="tab-button active" onclick="switchTab('places', this)">🏛️ الأماكن السياحية</button>
+                <button class="tab-button" onclick="switchTab('places', this)">🏛️ الأماكن السياحية</button>
                 <button class="tab-button" onclick="switchTab('restaurants', this)">🍽️ المطاعم والشعبي</button>
             </div>
 
-            <div id="places" class="content-section active">
+            <div id="places" class="content-section">
                 <div class="card" style="border-top: 6px solid #e67e22;">
                     <img src="{img_karak}" alt="قلعة الكرك" class="card-img">
                     <h2 style="color: #e67e22; margin-top: 5px;">🏰 قلعة الكرك التاريخية</h2>
@@ -134,17 +146,18 @@ def home():
 
             <script>
                 function switchTab(tabId, button) {{
-                    // إخفاء كل الأقسام
+                    // إخفاء الأقسام
                     document.querySelectorAll('.content-section').forEach(section => {{
-                        section.classList.remove('active');
+                        section.style.display = 'none';
                     }});
-                    // إزالة اللون الأزرق من كل الأزرار
+                    // إلغاء تفعيل الأزرار الأخرى
                     document.querySelectorAll('.tab-button').forEach(btn => {{
                         btn.classList.remove('active');
                     }});
                     
-                    // إظهار القسم المطلوب وتفعيل الزر تابعه
-                    document.getElementById(tabId).classList.add('active');
+                    // إظهار القسم اللي كبسنا عليه وتفعيل زره
+                    const currentSection = document.getElementById(tabId);
+                    currentSection.style.display = 'block';
                     button.classList.add('active');
                 }}
             </script>
@@ -164,4 +177,3 @@ if __name__ == '__main__':
         print(f"Ngrok error: {e}")
         
     app.run(host='0.0.0.0', port=5000)
-
